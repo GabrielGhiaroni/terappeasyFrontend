@@ -5,9 +5,14 @@ import { useParams } from 'react-router-dom';
 function MinhasNotas() {
   const [notas, setNotas] = useState([]);
   const [error, setError] = useState('');
+  const [novaNota, setNovaNota] = useState('');
+  const [criandoNota, setCriandoNota] = useState(false);
   const {id} = useParams();
 
-  useEffect(() => {
+    useEffect(() => {
+      fetchNotas();
+    }, [id]);
+
     const fetchNotas = async () => {
       try {
         const response = await axios.get(`http://localhost:3000/${id}/minhas-notas`, {
@@ -19,8 +24,24 @@ function MinhasNotas() {
       }
     };
 
-    fetchNotas();
-  }, [id]); // A função será executada quando o valor de 'id' mudar
+  const handleNovaNota = () => {
+    setCriandoNota(true);
+  };
+
+  const handleSalvarNota = async () => {
+    try {
+      const response = await axios.post(`http://localhost:3000/${id}/minhas-notas`, {
+        conteudo: novaNota
+      }, {
+        headers: { Authorization: localStorage.getItem('token') }
+      });
+      setCriandoNota(false);
+      setNovaNota('');
+      fetchNotas(); // Atualiza a lista de notas após adicionar uma nova
+    } catch (err) {
+      setError('Erro ao salvar a nota');
+    }
+  };
 
   return (
     <div className="notas-page">
@@ -34,7 +55,20 @@ function MinhasNotas() {
       ) : (
         <p className="error-message">Nenhuma nota encontrada.</p>
       )}
-      {error && <p className="error-message">{error}</p>}
+       {criandoNota ? (
+        <div>
+          <textarea 
+              value={novaNota}
+              onChange={(e) => setNovaNota(e.target.value)}
+              cols="10"
+              rows="2"
+              placeholder='Digite aqui a sua nova nota'
+          />
+          <button onClick={handleSalvarNota}>Salvar Nota</button>
+        </div>
+      ) : (
+      <button className='btn-nova-nota' onClick={handleNovaNota}>Nova nota</button>
+      )}
     </div>
   );
 }

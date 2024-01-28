@@ -84,3 +84,25 @@ input[type="password"] {
   color: #D0021B;
   /* Mensagens de erro em vermelho */
 }
+
+.btn-nova-nota {
+  background-color: #4A90E2;
+  /* ou qualquer outra cor */
+  border-radius: 4px;
+  color: white;
+  padding: 12px 20px;
+  width: auto;
+  /* ou uma largura específica */
+  max-width: 200px;
+  /* ou a largura máxima desejada */
+  display: block;
+  /* para que o margin:auto funcione */
+  margin: 20px auto;
+  /* isso adiciona uma margem superior e inferior de 20px e centraliza horizontalmente */
+  transition: background-color 0.3s;
+}
+
+.btn-nova-nota:hover {
+  background-color: #32C5FF;
+  cursor: pointer;
+}
