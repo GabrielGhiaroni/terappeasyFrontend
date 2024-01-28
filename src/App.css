@@ -1,107 +1,86 @@
 body {
-  background-color: #9f9da7;
-  font-size: 1.6rem;
-  font-family: "Open Sans", sans-serif;
-  color: #2b3e51;
+  background-color: #FFFFFF;
+  /* Fundo branco */
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  color: #333333;
+  /* Texto cinza escuro para leitura confortável */
 }
 
 h2 {
-  font-weight: 300;
-  text-align: center;
-}
-
-a,
-a:link,
-a:visited,
-a:active {
-  color: #3ca9e2;
-  -webkit-transition: all 0.2s ease;
-  transition: all 0.2s ease;
-}
-
-a:focus,
-a:hover,
-a:link:focus,
-a:link:hover,
-a:visited:focus,
-a:visited:hover,
-a:active:focus,
-a:active:hover {
-  color: #329dd5;
-  -webkit-transition: all 0.2s ease;
-  transition: all 0.2s ease;
+  color: #333333;
+  /* Título em cinza escuro */
+  margin-bottom: 20px;
 }
 
 .login-form-wrap {
-  background-color: #fff;
-  width: 70%;
+  background: #EBF5FB;
+  /* Fundo azul muito claro para destaques */
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  margin: 40px auto;
+  padding: 40px;
+  width: 90%;
   max-width: 400px;
-  margin: 30px auto;
-  text-align: center;
-  padding: 20px 0 0 0;
+}
+
+input[type="email"],
+input[type="password"] {
+  background: #fff;
+  border: 2px solid #ddd;
+  /* Mantendo a borda dos inputs */
   border-radius: 4px;
-  box-shadow: 0px 30px 50px 0px rgba(0, 0, 0, 0.2);
-}
-
-.login-form {
-  padding: 0 60px;
-}
-
-input {
-  display: block;
-  box-sizing: border-box;
-  width: 100%;
-  outline: none;
-  height: 60px;
-  line-height: 60px;
-  border-radius: 4px;
-}
-
-input[type="password"],
-input[type="email"] {
-  width: 100%;
-  padding: 0 0 0 10px;
-  margin: 10px 0;
-  color: #8a8b8e;
-  border: 1px solid #c2c0ca;
-  font-style: normal;
-  font-size: 16px;
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  appearance: none;
-  position: relative;
-  display: inline-block;
-  background: none;
-}
-
-input[type="password"]:focus,
-input[type="email"]:focus {
-  border-color: #3ca9e2;
+  margin-bottom: 15px;
+  padding: 12px;
+  width: calc(100% - 24px);
 }
 
 .btn-login {
-  border: none;
-  display: block;
-  background-color: #3ca9e2;
-  color: #fff;
-  font-weight: bold;
-  text-transform: uppercase;
-  cursor: pointer;
-  -webkit-transition: all 0.2s ease;
-  transition: all 0.2s ease;
-  font-size: 18px;
-  position: relative;
-  display: inline-block;
-  cursor: pointer;
-  text-align: center;
-  margin-bottom: 30px;
-  margin-top: 10px;
+  background-color: #4A90E2;
+  /* Botão primário azul claro */
+  border-radius: 4px;
+  color: white;
+  padding: 12px 20px;
   width: 100%;
-  padding: 20px;
+  transition: background-color 0.3s;
 }
 
 .btn-login:hover {
-  background-color: #329dd5;
-  -webkit-transition: all 0.2s ease;
-  transition: all 0.2s ease;
+  background-color: #32C5FF;
+  cursor: pointer;
+  /* Botão secundário azul ciano ao passar o mouse */
+}
+
+.notas-page {
+  background-color: #EBF5FB;
+  /* Fundo azul muito claro para destaques */
+  padding: 40px;
+  text-align: center;
+}
+
+.notas-title {
+  color: #333333;
+  /* Título em cinza escuro */
+  margin-bottom: 20px;
+}
+
+.nota {
+  background-color: #FFFFFF;
+  /* Fundo branco para cada nota */
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  margin: 20px auto;
+  padding: 20px;
+  width: 90%;
+  max-width: 400px;
+}
+
+.nota-content {
+  color: #666666;
+  /* Texto em cinza médio */
+  margin-bottom: 10px;
+}
+
+.error-message {
+  color: #D0021B;
+  /* Mensagens de erro em vermelho */
 }

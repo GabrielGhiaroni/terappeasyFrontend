@@ -23,16 +23,18 @@ function MinhasNotas() {
   }, [id]); // A função será executada quando o valor de 'id' mudar
 
   return (
-    <div>
-      <h2>Minhas Notas</h2>
+    <div className="notas-page">
+      <h2 className="notas-title">Minhas Notas</h2>
       {notas.length > 0 ? (
         notas.map(nota => (
-          <div key={nota.id}>{nota.conteudo}</div>
+          <div key={nota.id} className="nota">
+          <p className="nota-content">{nota.conteudo}</p>  
+          </div>
         ))
       ) : (
-        <p>Nenhuma nota encontrada.</p>
+        <p className="error-message">Nenhuma nota encontrada.</p>
       )}
-      {error && <p>{error}</p>}
+      {error && <p className="error-message">{error}</p>}
     </div>
   );
 }
