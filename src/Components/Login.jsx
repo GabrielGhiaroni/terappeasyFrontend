@@ -1,4 +1,5 @@
 import { useState } from "react";
+import {useNavigate} from 'react-router-dom';
 import axios from "axios";
 
 function Login() {
@@ -7,7 +8,6 @@ function Login() {
     const [senha, setSenha] = useState('');
     const [error, setError] = useState('');
     const [user, setUser] = useState(null);
-    const [mostrarNotas, setMotrarNotas] = useState(false);
 
     const handleLogin = async (e) => {
         e.preventDefault();
@@ -37,21 +37,11 @@ function Login() {
         setError('');
     };
 
-    const handleNotas = async (e) => {
-        e.preventDefault();
+    const navigate = useNavigate();
 
-        try {
-            const response = await axios.get('http://localhost:3000/:id/minhas-notas')
-            setMotrarNotas(response.data)
-            console.log(response.data)
-        } catch (error) {
-            if (!error?.response) {
-                setError('Erro ao acessar o servidor.');
-            } else if (error.response.status === 401) {
-                setError('Usuário ou senha inválidos.');
-            }
-        }
-    }
+    const goToNotas = () => {
+        navigate(`/minhas-notas/${user.id}`);
+    };
 
     return(
         <div className='login-form-wrap'>
@@ -88,7 +78,8 @@ function Login() {
                 <button 
                     type="button"
                     className="btn-login"
-                    onClick={handleNotas}>Minhas Notas
+                    onClick={goToNotas}
+                    >Minhas Notas
                 </button>
             </div>
         )}
