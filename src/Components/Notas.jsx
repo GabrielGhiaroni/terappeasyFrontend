@@ -1,12 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
+import {FaPencilAlt} from 'react-icons/fa';
 
 function MinhasNotas() {
   const [notas, setNotas] = useState([]);
   const [error, setError] = useState('');
   const [novaNota, setNovaNota] = useState('');
   const [criandoNota, setCriandoNota] = useState(false);
+  const [editId, setEditId] = useState(null);
+  const [editTexto, setEditTexto] = useState('');
   const {id} = useParams();
 
     useEffect(() => {
@@ -18,7 +21,7 @@ function MinhasNotas() {
         const response = await axios.get(`http://localhost:3000/notas/${id}`, {
           headers: { Authorization: localStorage.getItem('token') }
         });
-        setNotas(response.data); // Atribuindo diretamente o array de notas recebido
+        setNotas(response.data);
       } catch (err) {
         setError('Erro ao buscar notas');
       }
@@ -43,13 +46,52 @@ function MinhasNotas() {
     }
   };
 
+  const handleEditarNota = (notaId, texto) => {
+    setEditId(notaId);
+    setEditTexto(texto);
+  }
+
+  const handleSalvarEdicao = async () => {
+  try {
+    const response = await axios.put(`http://localhost:3000/notas/${editId}`, { conteudo: editTexto }, { headers: { Authorization: localStorage.getItem('token') } });
+    
+    // Atualiza a nota no estado sem recarregar todas do servidor
+    const notasAtualizadas = notas.map(nota => {
+      if (nota.id === editId) {
+        return { ...nota, conteudo: editTexto }; // Atualiza o conteúdo da nota editada
+      }
+      return nota; // Retorna as outras notas sem alteração
+    });
+
+    setNotas(notasAtualizadas); // Atualiza o estado com as notas atualizadas
+    setEditId(null); // Sai do modo de edição
+    setEditTexto(''); // Limpa o campo de edição
+  } catch (error) {
+    setError('Erro ao salvar nota.');
+  }
+}
   return (
     <div className="notas-page">
       <h2 className="notas-title">Minhas Notas</h2>
       {notas.length > 0 ? (
         notas.map(nota => (
           <div key={nota.id} className="nota">
-          <p className="nota-content">{nota.conteudo}</p>  
+            {editId === nota.id ? (
+              <div>
+                <textarea value={editTexto} onChange={(e) => setEditTexto(e.target.value)} cols="10" rows="5"/>
+                <button onClick={handleSalvarEdicao}>Salvar</button>
+              </div>
+            ) : (
+              /*primeiro exibe a nota normalmente, com o lápis do lado.
+                quando eu clico no ícone do lápis, eu chamo a função handleEditarNota,
+                passando o id da nota por parâmetro para eu atualizar o setEditId com esse id,
+                assim como o novo conteúdo da nota para eu atualizar o setEditTexto com esse novo conteúdo.              
+              */
+              <>
+                <p className="nota-content">{nota.conteudo}</p>
+                <FaPencilAlt style={{ cursor: 'pointer' }} onClick={() => handleEditarNota(nota.id, nota.conteudo)}/>
+              </>
+            )}
           </div>
         ))
       ) : (
