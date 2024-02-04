@@ -15,7 +15,7 @@ function MinhasNotas() {
 
     const fetchNotas = async () => {
       try {
-        const response = await axios.get(`http://localhost:3000/${id}/minhas-notas`, {
+        const response = await axios.get(`http://localhost:3000/notas/${id}`, {
           headers: { Authorization: localStorage.getItem('token') }
         });
         setNotas(response.data); // Atribuindo diretamente o array de notas recebido
@@ -30,7 +30,7 @@ function MinhasNotas() {
 
   const handleSalvarNota = async () => {
     try {
-      const response = await axios.post(`http://localhost:3000/${id}/minhas-notas`, {
+      const response = await axios.post(`http://localhost:3000/notas/${id}`, {
         conteudo: novaNota
       }, {
         headers: { Authorization: localStorage.getItem('token') }
