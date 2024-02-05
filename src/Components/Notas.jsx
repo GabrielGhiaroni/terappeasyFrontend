@@ -10,6 +10,8 @@ function MinhasNotas() {
   const [criandoNota, setCriandoNota] = useState(false);
   const [editId, setEditId] = useState(null);
   const [editTexto, setEditTexto] = useState('');
+  const [mostrarConfirmacaoModal, setMostrarConfirmacaoModal] = useState(false);
+  const [notaParaDeletar, setNotaParaDeletar] = useState(null);
   const {id} = useParams();
 
     useEffect(() => {
@@ -79,9 +81,17 @@ function MinhasNotas() {
       //aqui, estou filtrando todas as notas que não possuem um id igual ao id da nota passanda como parâmetro.
       //essas notas serão novamente incluidas num array, equanto a nota que for igual será descartada.
       setNotas(notas.filter(nota => nota.id !== notaId));
+      setMostrarConfirmacaoModal(false); //fecha a modal após a exclusão.
+      setNotaParaDeletar(null); //reseta a nota selecionada.
     } catch (error) {
       setError('Erro ao deletar nota.');
+      setMostrarConfirmacaoModal(false); //fecha  modal em caso de erro.
     }
+  };
+
+  const confirmarDeletarNota = (notaId) => {
+    setMostrarConfirmacaoModal(true);
+    setNotaParaDeletar(notaId);
   };
 
   return (
@@ -105,7 +115,7 @@ function MinhasNotas() {
                 <p>{nota.conteudo}</p>
                 <div className='icones-notas'>
                   <FaPencilAlt className='fa-pencil-alt' onClick={() => handleEditarNota(nota.id, nota.conteudo)}/>
-                  <FaTrash className='fa-trash' onClick={() => handleDeletarNota(nota.id)} />
+                  <FaTrash className='fa-trash' onClick={() => confirmarDeletarNota(nota.id)} />
                 </div>
               </div>
             )}
@@ -128,6 +138,14 @@ function MinhasNotas() {
       ) : (
           <button className='btn-nova-nota' onClick={handleNovaNota}>Nova nota</button>
       )}
+        {mostrarConfirmacaoModal && (
+          <div className="modal">
+            <h4>ATENÇÃO!</h4>
+            <p>Tem certeza de que deseja excluir esta nota?</p>
+            <button className='btn-cancelar' onClick={() => setMostrarConfirmacaoModal(false)}>Voltar</button>
+            <button className='btn-excluir' onClick={() => handleDeletarNota(notaParaDeletar)}>Excluir</button>
+          </div>
+        )}
     </div>
   );
 }

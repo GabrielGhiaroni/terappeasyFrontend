@@ -96,12 +96,65 @@ input[type="password"] {
   color: #c61a2e;
 }
 
+.modal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #efefef;
+  padding: 20px;
+  z-index: 1000;
+  border-radius: 8px;
+  box-shadow: 0 40px 40px rgba(0, 0, 0, 0.2);
+  text-align: center;
+  width: 300px;
+}
+
+.modal h4 {
+  color: #D0021B;
+}
+
+.modal p {
+  margin-bottom: 20px;
+  color: #333;
+  font-weight: bold;
+}
+
+.modal button {
+  border: none;
+  border-radius: 5px;
+  padding: 10px 20px;
+  margin: 0 10px;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+}
+
+.modal .btn-cancelar {
+  background-color: #cccccc;
+  color: #333;
+  font-weight: bold;
+}
+
+.modal .btn-excluir {
+  background-color: #ff4444;
+  /* Cor vermelha para a ação de exclusão */
+  color: #fff;
+  font-weight: bold;
+}
+
+.modal .btn-cancelar:hover {
+  background-color: #bbbbbb;
+}
+
+.modal .btn-excluir:hover {
+  background-color: #cc0000;
+  /* Um vermelho mais escuro para o hover */
+}
+
 .icones-notas {
   display: flex;
   justify-content: center;
 }
-
-
 
 .error-message {
   color: #D0021B;
