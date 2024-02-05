@@ -87,10 +87,10 @@ function MinhasNotas() {
                 passando o id da nota por parâmetro para eu atualizar o setEditId com esse id,
                 assim como o novo conteúdo da nota para eu atualizar o setEditTexto com esse novo conteúdo.              
               */
-              <>
-                <p className="nota-content">{nota.conteudo}</p>
-                <FaPencilAlt style={{ cursor: 'pointer' }} onClick={() => handleEditarNota(nota.id, nota.conteudo)}/>
-              </>
+              <div className='nota-content'>
+                <p>{nota.conteudo}</p>
+                <div><FaPencilAlt className='fa-pencil-alt' onClick={() => handleEditarNota(nota.id, nota.conteudo)}/></div>
+              </div>
             )}
           </div>
         ))
@@ -109,7 +109,7 @@ function MinhasNotas() {
           <button onClick={handleSalvarNota}>Salvar Nota</button>
         </div>
       ) : (
-      <button className='btn-nova-nota' onClick={handleNovaNota}>Nova nota</button>
+          <button className='btn-nova-nota' onClick={handleNovaNota}>Nova nota</button>
       )}
     </div>
   );

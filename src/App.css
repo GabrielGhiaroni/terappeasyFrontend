@@ -78,6 +78,14 @@ input[type="password"] {
   color: #666666;
   /* Texto em cinza médio */
   margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.fa-pencil-alt {
+  margin-right: 10px;
+  margin-left: 30px;
 }
 
 .error-message {
