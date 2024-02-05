@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
-import {FaPencilAlt} from 'react-icons/fa';
+import {FaPencilAlt, FaTrash} from 'react-icons/fa';
 
 function MinhasNotas() {
   const [notas, setNotas] = useState([]);
@@ -52,24 +52,38 @@ function MinhasNotas() {
   }
 
   const handleSalvarEdicao = async () => {
-  try {
-    const response = await axios.put(`http://localhost:3000/notas/${editId}`, { conteudo: editTexto }, { headers: { Authorization: localStorage.getItem('token') } });
-    
-    // Atualiza a nota no estado sem recarregar todas do servidor
-    const notasAtualizadas = notas.map(nota => {
-      if (nota.id === editId) {
-        return { ...nota, conteudo: editTexto }; // Atualiza o conteúdo da nota editada
-      }
-      return nota; // Retorna as outras notas sem alteração
-    });
+    try {
+      const response = await axios.put(`http://localhost:3000/notas/${editId}`, { conteudo: editTexto }, { headers: { Authorization: localStorage.getItem('token') } });
+      
+      // Atualiza a nota no estado sem recarregar todas do servidor
+      const notasAtualizadas = notas.map(nota => {
+        if (nota.id === editId) {
+          return { ...nota, conteudo: editTexto }; // Atualiza o conteúdo da nota editada
+        }
+        return nota; // Retorna as outras notas sem alteração
+      });
 
-    setNotas(notasAtualizadas); // Atualiza o estado com as notas atualizadas
-    setEditId(null); // Sai do modo de edição
-    setEditTexto(''); // Limpa o campo de edição
-  } catch (error) {
-    setError('Erro ao salvar nota.');
+      setNotas(notasAtualizadas); // Atualiza o estado com as notas atualizadas
+      setEditId(null); // Sai do modo de edição
+      setEditTexto(''); // Limpa o campo de edição
+    } catch (error) {
+      setError('Erro ao salvar nota.');
+    }
   }
-}
+  
+  const handleDeletarNota = async (notaId) => {
+    try {
+      await axios.delete(`http://localhost:3000/notas/${notaId}`, {
+        headers: {Authorization: localStorage.getItem('token')}
+      });
+      //aqui, estou filtrando todas as notas que não possuem um id igual ao id da nota passanda como parâmetro.
+      //essas notas serão novamente incluidas num array, equanto a nota que for igual será descartada.
+      setNotas(notas.filter(nota => nota.id !== notaId));
+    } catch (error) {
+      setError('Erro ao deletar nota.');
+    }
+  };
+
   return (
     <div className="notas-page">
       <h2 className="notas-title">Minhas Notas</h2>
@@ -89,7 +103,10 @@ function MinhasNotas() {
               */
               <div className='nota-content'>
                 <p>{nota.conteudo}</p>
-                <div><FaPencilAlt className='fa-pencil-alt' onClick={() => handleEditarNota(nota.id, nota.conteudo)}/></div>
+                <div className='icones-notas'>
+                  <FaPencilAlt className='fa-pencil-alt' onClick={() => handleEditarNota(nota.id, nota.conteudo)}/>
+                  <FaTrash className='fa-trash' onClick={() => handleDeletarNota(nota.id)} />
+                </div>
               </div>
             )}
           </div>

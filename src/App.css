@@ -84,10 +84,24 @@ input[type="password"] {
 }
 
 .fa-pencil-alt {
+  color: #afafaf;
   margin-right: 10px;
   margin-left: 30px;
   cursor: pointer;
 }
+
+.fa-trash {
+  cursor: pointer;
+  margin-left: 10px;
+  color: #c61a2e;
+}
+
+.icones-notas {
+  display: flex;
+  justify-content: center;
+}
+
+
 
 .error-message {
   color: #D0021B;
