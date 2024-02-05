@@ -86,6 +86,7 @@ input[type="password"] {
 .fa-pencil-alt {
   margin-right: 10px;
   margin-left: 30px;
+  cursor: pointer;
 }
 
 .error-message {
