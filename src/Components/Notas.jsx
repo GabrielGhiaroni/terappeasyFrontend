@@ -94,6 +94,21 @@ function MinhasNotas() {
     setNotaParaDeletar(notaId);
   };
 
+  const formatarData = (dataString) => {
+    const data = new Date(dataString);
+    const options = {
+      timeZone: 'America/Sao_Paulo',
+      day: '2-digit',
+      month: '2-digit',
+      year: 'numeric',
+      hour: '2-digit',
+      minute: '2-digit',
+      hour12: false
+    };
+    return data.toLocaleString('pt-BR', options);
+  }
+
+
   return (
     <div className="notas-page">
       <h2 className="notas-title">Minhas Notas</h2>
@@ -111,13 +126,21 @@ function MinhasNotas() {
                 passando o id da nota por parâmetro para eu atualizar o setEditId com esse id,
                 assim como o novo conteúdo da nota para eu atualizar o setEditTexto com esse novo conteúdo.              
               */
-              <div className='nota-content'>
-                <p>{nota.conteudo}</p>
-                <div className='icones-notas'>
+             <div>
+              <div className='nota-conteudo-icones'>
+                <p className='nota-content'>{nota.conteudo}</p>
+                <div>
                   <FaPencilAlt className='fa-pencil-alt' onClick={() => handleEditarNota(nota.id, nota.conteudo)}/>
                   <FaTrash className='fa-trash' onClick={() => confirmarDeletarNota(nota.id)} />
                 </div>
               </div>
+              <div className='nota-data'>
+                <p className='nota-data-texto'>Criada em: <br></br>
+                {formatarData(nota.data_criacao)}</p>
+              </div>
+            </div>
+
+              
             )}
           </div>
         ))
@@ -142,7 +165,7 @@ function MinhasNotas() {
           <div className="modal">
             <h4>ATENÇÃO!</h4>
             <p>Tem certeza de que deseja excluir esta nota?</p>
-            <button className='btn-cancelar' onClick={() => setMostrarConfirmacaoModal(false)}>Voltar</button>
+            <button className='btn-cancelar'onClick={() => setMostrarConfirmacaoModal(false)}>Voltar</button>
             <button className='btn-excluir' onClick={() => handleDeletarNota(notaParaDeletar)}>Excluir</button>
           </div>
         )}

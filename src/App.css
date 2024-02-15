@@ -81,6 +81,17 @@ input[type="password"] {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  font-family: "Poppins"
+}
+
+.nota-data {
+  text-align: left;
+  font-family: "Poppins";
+  color: #666666;
+}
+
+.nota-data-texto {
+  padding-bottom: 0;
 }
 
 .fa-pencil-alt {
@@ -151,9 +162,10 @@ input[type="password"] {
   /* Um vermelho mais escuro para o hover */
 }
 
-.icones-notas {
+.nota-conteudo-icones {
   display: flex;
   justify-content: center;
+  align-items: center;
 }
 
 .error-message {
